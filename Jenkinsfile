@@ -15,11 +15,11 @@ pipeline {
     steps {
         sh '''
             python3 -m venv venv
-            ./venv/bin/pip install -r app/requirements.txt
+            ./venv/bin/python -m pip install -r app/requirements.txt
         '''
+    }
+}
 
-            }
-        }
 
         stage('Run Tests') {
             steps {
