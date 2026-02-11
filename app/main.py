@@ -5,57 +5,108 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template_string("""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>My Python Server</title>
-        <style>
-            body {
-                margin: 0;
-                height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, #1d2671, #c33764);
-                color: white;
-                text-align: center;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Live Python Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffe1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .typing {
+            font-size: 22px;
+            border-right: 3px solid #00ffe1;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40, end) forwards, blink 0.8s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        .glow {
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ffe1;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) scale(0.5);
             }
-            .card {
-                background: rgba(255,255,255,0.1);
-                padding: 40px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                backdrop-filter: blur(10px);
+            to {
+                transform: translateY(-10vh) scale(1);
             }
-            h1 {
-                font-size: 36px;
-                margin-bottom: 10px;
-            }
-            p {
-                font-size: 18px;
-                opacity: 0.9;
-            }
-            .btn {
-                margin-top: 20px;
-                padding: 10px 20px;
-                background: white;
-                color: #c33764;
-                border-radius: 25px;
-                text-decoration: none;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="card">
-            <h1>🚀 My Python App is Live!</h1>
-            <p>Successfully deployed on a cloud server.</p>
-            <a class="btn" href="#">Explore More</a>
-        </div>
-    </body>
-    </html>
-    """)
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 Server Status: ONLINE</h1>
+    <div class="typing">My Python Application is Running Successfully...</div>
+    <div class="glow">Deployed on Cloud • Powered by Flask</div>
+</div>
+
+<script>
+    // Generate floating particles
+    for (let i = 0; i < 40; i++) {
+        let p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = (5 + Math.random() * 10) + "s";
+        p.style.opacity = Math.random();
+        document.body.appendChild(p);
+    }
+</script>
+
+</body>
+</html>
+""")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
