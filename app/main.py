@@ -16,7 +16,7 @@ def home():
 
     <style>
         body {
-            margin: 0;
+13.205.60.123            margin: 0;
             padding: 0;
             height: 100vh;
             background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
@@ -88,7 +88,7 @@ def home():
 
 <div class="container">
     <h1>🚀 Server Status: ONLINE</h1>
-    <div class="typing">My Python Application is Running Successfully...</div>
+    <div class="typing">My python application is running</div>
     <div class="glow">Deployed on Cloud • Powered by Flask</div>
 </div>
 
