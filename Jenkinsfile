@@ -39,9 +39,9 @@ stage('Deploy Application') {
         docker rm -f cloud-native-app || true
         docker run -d -p 5000:5000 --name cloud-native-app cloud-native-app
         '''
-   }
-                '''
-            }
-        }
+    }
+}
+
+
     }
 }
