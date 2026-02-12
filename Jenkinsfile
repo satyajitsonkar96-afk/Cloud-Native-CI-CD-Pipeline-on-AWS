@@ -27,18 +27,19 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t cloud-native-app .'
-            }
-        }
+stage('Build Docker Image') {
+    steps {
+        sh 'docker build -t cloud-native-app .'
+    }
+}
 
-        stage('Deploy Application') {
-            steps {
-                sh '''
-                docker stop cloud-native-app || true
-                docker rm cloud-native-app || true
-                docker run -d -p 5000:5000 --name cloud-native-app cloud-native-app
+stage('Deploy Application') {
+    steps {
+        sh '''
+        docker rm -f cloud-native-app || true
+        docker run -d -p 5000:5000 --name cloud-native-app cloud-native-app
+        '''
+   }
                 '''
             }
         }
