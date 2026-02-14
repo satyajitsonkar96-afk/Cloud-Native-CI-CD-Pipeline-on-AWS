@@ -6,25 +6,15 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main',
-                credentialsId: 'github-creds',
                 url: 'https://github.com/satyajitsonkar96-afk/Cloud-Native-CI-CD-Pipeline-on-AWS.git'
-            }
-        }
-
-stage('Install Dependencies') {
-    steps {
-        sh '''
-        python3 -m venv venv
-        source venv/bin/activate
-        pip install --upgrade pip
-        pip install -r app/requirements.txt
-        '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'python3 -m py_compile app/main.py || exit 1'
+                sh '''
+                python3 -m py_compile app/main.py || exit 1
+                '''
             }
         }
 
@@ -36,7 +26,9 @@ stage('Install Dependencies') {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t cloud-native-app .'
+                sh '''
+                docker build -t cloud-native-app .
+                '''
             }
         }
 
