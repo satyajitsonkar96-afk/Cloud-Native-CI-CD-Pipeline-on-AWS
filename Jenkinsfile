@@ -32,16 +32,13 @@ stage('Build Docker Image') {
         sh 'docker build -t cloud-native-app .'
     }
 }
-
 stage('Deploy Application') {
     steps {
         sh '''
-        docker rm -rf cloud-native-app || true
-        docker run -d -p 5000:5000 --name cloud-native-app cloud-native-app
+        docker rm -f cloud-native-app || true
+        docker run -d -p 5000:5000 --restart always --name cloud-native-app cloud-native-app
         '''
     }
 }
-
-
-    }
+}
 }
