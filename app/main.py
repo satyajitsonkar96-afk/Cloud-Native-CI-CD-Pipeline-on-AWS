@@ -89,7 +89,7 @@ def home():
 <div class="container">
     <h1>🚀 Server Status: ONLINE</h1>
     <div class="typing">My python application is running</div>
-    <div class="glow">Deployed on Cloud • Powered by Flask</div>
+    <div class="glow">Deployed on Cloud • Powered by Satyajit</div>
 </div>
 
 <script>
