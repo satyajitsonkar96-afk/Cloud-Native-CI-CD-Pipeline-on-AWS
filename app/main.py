@@ -1,37 +1,68 @@
-from flask import Flask, jsonify
-import os
-import logging
-
-app = Flask(__name__)
-
-# Logging setup
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Environment variables
-APP_NAME = os.getenv("APP_NAME", "Cloud DevOps App")
-VERSION = os.getenv("VERSION", "1.0")
-
 @app.route("/")
 def home():
-    logger.info("Home endpoint accessed")
-    return f"{APP_NAME} - Version {VERSION}"
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Cloud DevOps App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: linear-gradient(to right, #4facfe, #00f2fe);
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                color: white;
+            }
+            .container {
+                margin-top: 100px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .btn {
+                display: inline-block;
+                margin: 15px;
+                padding: 12px 25px;
+                font-size: 16px;
+                color: white;
+                background-color: #ff7b00;
+                border: none;
+                border-radius: 8px;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+            .btn:hover {
+                background-color: #ff5500;
+                transform: scale(1.05);
+            }
+            .card {
+                background: rgba(255,255,255,0.1);
+                padding: 20px;
+                border-radius: 10px;
+                display: inline-block;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 Cloud DevOps App</h1>
+            <p>Deployed using Jenkins CI/CD on AWS</p>
 
-@app.route("/health")
-def health():
-    return jsonify({
-        "status": "healthy",
-        "app": APP_NAME,
-        "version": VERSION
-    })
+            <div class="card">
+                <p><strong>Version:</strong> 1.0</p>
+                <p><strong>Author:</strong> Satyajit Sonkar</p>
+            </div>
 
-@app.route("/info")
-def info():
-    return jsonify({
-        "message": "This is a CI/CD deployed app",
-        "author": "Satyajit Sonkar",
-        "project": "Cloud Native DevOps Pipeline"
-    })
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+            <div>
+                <a href="/health" class="btn">Health Check</a>
+                <a href="/info" class="btn">App Info</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
