@@ -66,7 +66,7 @@ HTML_PAGE = """
 
     <div class="card">
         <h1>🚀 CI/CD Pipeline</h1>
-        <p>Your Cloud-Native App is Live on AWS</p>
+        <p>Satyajit's Cloud-Native App is Live on AWS</p>
 
         <div class="status">✅ Status: Running</div>
 
