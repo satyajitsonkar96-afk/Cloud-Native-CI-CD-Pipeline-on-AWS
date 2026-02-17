@@ -1,27 +1,14 @@
 from flask import Flask, render_template_string
 from datetime import datetime
-import random
 
 app = Flask(__name__)
-
-def get_pipeline_data():
-    # Simulated data (replace with Jenkins API later)
-    statuses = ["Running", "Failed", "Building"]
-    status = random.choice(statuses)
-
-    return {
-        "status": status,
-        "version": "v1.2.3",
-        "build": "#42",
-        "last_deploy": datetime.now().strftime("%d %b %Y, %I:%M %p")
-    }
 
 HTML_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cloud CI/CD Dashboard</title>
+<title>CI/CD Dashboard</title>
 
 <style>
 * {
@@ -48,7 +35,6 @@ body {
     text-align: center;
     color: white;
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease;
 }
 
 h1 {
@@ -67,7 +53,6 @@ h1 {
     border-radius: 12px;
     font-weight: bold;
     display: inline-block;
-    animation: pulse 1.5s infinite;
 }
 
 .running { background: #22c55e; color: black; }
@@ -111,17 +96,6 @@ button {
     font-size: 12px;
     opacity: 0.7;
 }
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
-    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px);}
-    to { opacity: 1; transform: translateY(0);}
-}
 </style>
 </head>
 
@@ -159,7 +133,8 @@ button {
 
 @app.route('/')
 def home():
-    data = get_pipeline_data()
+    # Static safe data (NO crash risk)
+    status = "Running"
 
     status_map = {
         "Running": ("running", "✅"),
@@ -167,16 +142,16 @@ def home():
         "Building": ("building", "⚙️")
     }
 
-    status_class, status_icon = status_map[data["status"]]
+    status_class, status_icon = status_map[status]
 
     return render_template_string(
         HTML_PAGE,
-        status=data["status"],
+        status=status,
         status_class=status_class,
         status_icon=status_icon,
-        version=data["version"],
-        build=data["build"],
-        last_deploy=data["last_deploy"]
+        version="v1.0.0",
+        build="#1",
+        last_deploy=datetime.now().strftime("%d %b %Y, %I:%M %p")
     )
 
 @app.route('/health')
