@@ -1,5 +1,4 @@
 from flask import Flask, render_template_string
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -8,7 +7,7 @@ HTML_PAGE = """
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CI/CD Dashboard</title>
+<title>Cloud CI/CD Dashboard</title>
 
 <style>
 * {
@@ -31,7 +30,7 @@ body {
     backdrop-filter: blur(18px);
     border-radius: 20px;
     padding: 40px;
-    width: 380px;
+    width: 360px;
     text-align: center;
     color: white;
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
@@ -39,25 +38,30 @@ body {
 
 h1 {
     font-size: 26px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-.subtitle {
-    font-size: 14px;
-    opacity: 0.85;
+p {
+    font-size: 15px;
+    opacity: 0.9;
 }
 
 .status {
     margin-top: 20px;
-    padding: 12px 18px;
+    padding: 12px;
     border-radius: 12px;
+    background: #22c55e;
+    color: black;
     font-weight: bold;
     display: inline-block;
+    animation: pulse 1.5s infinite;
 }
 
-.running { background: #22c55e; color: black; }
-.failed { background: #ef4444; color: white; }
-.building { background: #facc15; color: black; }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
 
 .badge {
     margin-top: 15px;
@@ -67,29 +71,6 @@ h1 {
     border-radius: 8px;
     display: inline-block;
 }
-
-.info {
-    margin-top: 20px;
-    font-size: 13px;
-    opacity: 0.9;
-    line-height: 1.6;
-}
-
-.buttons {
-    margin-top: 20px;
-}
-
-button {
-    padding: 10px 14px;
-    border: none;
-    border-radius: 8px;
-    margin: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.logs { background: #3b82f6; color: white; }
-.deploy { background: #10b981; color: white; }
 
 .footer {
     margin-top: 20px;
@@ -103,27 +84,14 @@ button {
 
 <div class="card">
     <h1>🚀 CI/CD Pipeline</h1>
-    <div class="subtitle">Cloud-Native Deployment Dashboard</div>
+    <p>Cloud-Native App Deployed Successfully</p>
 
-    <div class="status {{ status_class }}">
-        {{ status_icon }} {{ status }}
-    </div>
+    <div class="status">✅ Running</div>
 
     <div class="badge">Environment: Production</div>
 
-    <div class="info">
-        <div>Version: {{ version }}</div>
-        <div>Build: {{ build }}</div>
-        <div>Last Deploy: {{ last_deploy }}</div>
-    </div>
-
-    <div class="buttons">
-        <button class="logs">📄 View Logs</button>
-        <button class="deploy">🔄 Redeploy</button>
-    </div>
-
     <div class="footer">
-        Jenkins 🧩 • Docker 🐳 • AWS ☁️ • Nginx 🌐
+        Jenkins • Docker • AWS EC2 • Nginx
     </div>
 </div>
 
@@ -133,26 +101,7 @@ button {
 
 @app.route('/')
 def home():
-    # Static safe data (NO crash risk)
-    status = "Running"
-
-    status_map = {
-        "Running": ("running", "✅"),
-        "Failed": ("failed", "❌"),
-        "Building": ("building", "⚙️")
-    }
-
-    status_class, status_icon = status_map[status]
-
-    return render_template_string(
-        HTML_PAGE,
-        status=status,
-        status_class=status_class,
-        status_icon=status_icon,
-        version="v1.0.0",
-        build="#1",
-        last_deploy=datetime.now().strftime("%d %b %Y, %I:%M %p")
-    )
+    return render_template_string(HTML_PAGE)
 
 @app.route('/health')
 def health():
