@@ -1,7 +1,7 @@
 @app.route('/')
 def home():
     return """
-z<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,18 +25,16 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
-    overflow: hidden; /* prevent scroll from bubbles */
+    overflow: hidden;
     position: relative;
 }
 
-/* Background animation */
 @keyframes bgMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Card - enhanced with pulse animation on hover */
 .card {
     width: 380px;
     padding: 30px;
@@ -58,7 +56,6 @@ body {
     border-color: rgba(0, 255, 200, 0.3);
 }
 
-/* Fade animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -70,7 +67,6 @@ body {
     text-shadow: 0 0 5px rgba(0,255,255,0.5);
 }
 
-/* Status with spinning ring */
 .status {
     font-size: 26px;
     font-weight: bold;
@@ -79,7 +75,7 @@ body {
     animation: glow 2s infinite alternate;
     position: relative;
     display: inline-block;
-    padding-left: 40px; /* make space for ring */
+    padding-left: 40px;
 }
 
 .status::before {
@@ -112,7 +108,6 @@ body {
     opacity: 0.9;
 }
 
-/* Progress bar with shimmer effect */
 .progress-container {
     width: 100%;
     height: 8px;
@@ -151,7 +146,6 @@ body {
     100% { transform: translateX(100%); }
 }
 
-/* Badge with pulse and shimmer */
 .badge {
     margin-top: 15px;
     display: inline-block;
@@ -192,7 +186,6 @@ body {
     100% { transform: translateX(100%); }
 }
 
-/* Footer */
 .footer {
     margin-top: 20px;
     font-size: 12px;
@@ -200,7 +193,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Floating bubbles - more dynamic */
 .bubble {
     position: absolute;
     border-radius: 50%;
@@ -256,7 +248,6 @@ body {
     100% { transform: translate(30px, -30px) scale(1.1); }
 }
 
-/* Additional subtle animation on the title */
 .title {
     animation: titleGlow 3s infinite alternate;
 }
@@ -270,7 +261,6 @@ body {
 </head>
 <body>
 
-<!-- More bubbles for extra movement -->
 <div class="bubble"></div>
 <div class="bubble"></div>
 <div class="bubble"></div>
@@ -293,3 +283,4 @@ body {
 
 </body>
 </html>
+"""
