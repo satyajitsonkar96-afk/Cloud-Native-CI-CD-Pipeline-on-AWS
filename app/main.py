@@ -1,286 +1,72 @@
+from flask import Flask
+
+app = Flask(__name__)
+
 @app.route('/')
 def home():
     return """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>CI/CD Dashboard - Animated</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Cloud DevOps App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: linear-gradient(to right, #4facfe, #00f2fe);
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                color: white;
+            }
+            .container {
+                margin-top: 100px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .btn {
+                display: inline-block;
+                margin: 15px;
+                padding: 12px 25px;
+                font-size: 16px;
+                color: white;
+                background-color: #ff7b00;
+                border: none;
+                border-radius: 8px;
+                text-decoration: none;
+                transition: 0.3s;
+            }
+            .btn:hover {
+                background-color: #ff5500;
+                transform: scale(1.05);
+            }
+            .card {
+                background: rgba(255,255,255,0.1);
+                padding: 20px;
+                border-radius: 10px;
+                display: inline-block;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 Cloud DevOps App</h1>
+            <p>Deployed using Jenkins CI/CD on AWS</p>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+            <div class="card">
+                <p><strong>Version:</strong> 1.0</p>
+                <p><strong>Author:</strong> Satyajit Sonkar</p>
+            </div>
 
-body {
-    height: 100vh;
-    background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-    background-size: 600% 600%;
-    animation: bgMove 12s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    overflow: hidden;
-    position: relative;
-}
-
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.card {
-    width: 380px;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    text-align: center;
-    animation: fadeIn 1.2s ease;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 10;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.card:hover {
-    transform: scale(1.02) translateY(-5px);
-    box-shadow: 0 30px 60px rgba(0, 255, 200, 0.3);
-    border-color: rgba(0, 255, 200, 0.3);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.title {
-    font-size: 22px;
-    margin-bottom: 10px;
-    text-shadow: 0 0 5px rgba(0,255,255,0.5);
-}
-
-.status {
-    font-size: 26px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #00ffcc;
-    animation: glow 2s infinite alternate;
-    position: relative;
-    display: inline-block;
-    padding-left: 40px;
-}
-
-.status::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    border: 3px solid rgba(0, 255, 200, 0.3);
-    border-top-color: #00ffcc;
-    border-radius: 50%;
-    animation: spin 1.5s linear infinite;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px #00ffcc; }
-    to { text-shadow: 0 0 25px #00ffcc, 0 0 35px #00ffaa; }
-}
-
-@keyframes spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
-}
-
-.info {
-    margin: 8px 0;
-    font-size: 15px;
-    opacity: 0.9;
-}
-
-.progress-container {
-    width: 100%;
-    height: 8px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 20px;
-    position: relative;
-}
-
-.progress {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #00ffcc, #00ff88);
-    animation: load 3s forwards;
-    position: relative;
-}
-
-.progress::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes load {
-    to { width: 100%; }
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.badge {
-    margin-top: 15px;
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 25px;
-    background: #00ff88;
-    color: black;
-    font-weight: bold;
-    animation: pop 0.5s ease, badgePulse 2s infinite 0.5s;
-    position: relative;
-    overflow: hidden;
-}
-
-.badge::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-    transform: translateX(-100%);
-    animation: badgeShimmer 2s infinite 1s;
-}
-
-@keyframes pop {
-    from { transform: scale(0); }
-    to { transform: scale(1); }
-}
-
-@keyframes badgePulse {
-    0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
-}
-
-@keyframes badgeShimmer {
-    100% { transform: translateX(100%); }
-}
-
-.footer {
-    margin-top: 20px;
-    font-size: 12px;
-    opacity: 0.6;
-    letter-spacing: 1px;
-}
-
-.bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.bubble:nth-child(1) {
-    width: 80px;
-    height: 80px;
-    top: 10%;
-    left: 15%;
-    animation: float 8s infinite alternate ease-in-out;
-}
-
-.bubble:nth-child(2) {
-    width: 60px;
-    height: 60px;
-    bottom: 15%;
-    right: 10%;
-    animation: float 12s infinite alternate-reverse ease-in-out;
-}
-
-.bubble:nth-child(3) {
-    width: 100px;
-    height: 100px;
-    top: 60%;
-    left: 5%;
-    animation: float 10s infinite alternate ease-in-out;
-}
-
-.bubble:nth-child(4) {
-    width: 40px;
-    height: 40px;
-    top: 30%;
-    right: 20%;
-    animation: float 7s infinite alternate ease-in-out;
-    background: rgba(255,255,255,0.15);
-}
-
-.bubble:nth-child(5) {
-    width: 120px;
-    height: 120px;
-    bottom: 5%;
-    left: 20%;
-    animation: float 15s infinite alternate-reverse ease-in-out;
-    background: rgba(255,255,255,0.05);
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, -30px) scale(1.1); }
-}
-
-.title {
-    animation: titleGlow 3s infinite alternate;
-}
-
-@keyframes titleGlow {
-    0% { text-shadow: 0 0 5px cyan; }
-    100% { text-shadow: 0 0 20px cyan, 0 0 30px #00ffaa; }
-}
-</style>
-
-</head>
-<body>
-
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-
-<div class="card">
-    <div class="title">🚀 CI/CD Dashboard</div>
-    <div class="status">✔ Deployment Successful</div>
-    <div class="info">Build: <b>#1</b></div>
-    <div class="info">Environment: <b>Production</b></div>
-    <div class="info">Server: <b>AWS EC2</b></div>
-    <div class="info">Container: <b>Docker</b></div>
-    <div class="progress-container">
-        <div class="progress"></div>
-    </div>
-    <div class="badge">SUCCESS</div>
-    <div class="footer">Jenkins • GitHub • Docker</div>
-</div>
-
-</body>
-</html>
-"""
+            <div>
+                <a href="/health" class="btn">Health Check</a>
+                <a href="/info" class="btn">App Info</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
