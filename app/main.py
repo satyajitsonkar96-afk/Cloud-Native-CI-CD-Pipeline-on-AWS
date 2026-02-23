@@ -90,7 +90,7 @@ def home():
         <!-- Hero Section -->
         <section class="hero text-center">
             <div class="container">
-                <h1 class="display-4 fw-bold">🚀 Cloud DevOps App</h1>
+                <h1 class="display-4 fw-bold">🚀 SATYAJIT SONKAR</h1>
                 <p class="lead">Deployed using Jenkins CI/CD on AWS | Version 1.0</p>
                 <div class="mt-4">
                     <a href="/health" class="btn btn-glass btn-lg me-2"><i class="fas fa-heartbeat"></i> Health Check</a>
@@ -101,7 +101,7 @@ def home():
 
         <!-- Feature Cards -->
         <div class="container">
-            <div class="row g-4">
+0            <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom h-100">
                         <div class="card-body text-center">
