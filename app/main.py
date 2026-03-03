@@ -90,7 +90,7 @@ def home():
         <!-- Hero Section -->
         <section class="hero text-center">
             <div class="container">
-                <h1 class="display-4 fw-bold">🚀 SATYAJIT SONKAR</h1>
+                <h1 class="display-4 fw-bold">🚀 CICD NATIVE PIPELINE IS RUNNIG</h1>
                 <p class="lead">Deployed using Jenkins CI/CD on AWS | Version 1.0</p>
                 <div class="mt-4">
                     <a href="/health" class="btn btn-glass btn-lg me-2"><i class="fas fa-heartbeat"></i> Health Check</a>
