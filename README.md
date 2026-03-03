@@ -11,29 +11,29 @@ It showcases automated build, test, containerization, and live deployment trigge
 ⸻
 
 ## 🛠️ Tech Stack
-	•	Python (Flask)
-	•	Gunicorn (WSGI Server)
-	•	Docker
-	•	Jenkins
-	•	Git & GitHub
-	•	AWS EC2 (Ubuntu)
-	•	Nginx (Reverse Proxy)
-	•	Linux (Ubuntu Server)
+ - Python (Flask)
+ - Gunicorn (WSGI Server)
+ - Docker
+ - Jenkins
+ - Git & GitHub
+ - AWS EC2 (Ubuntu)
+ - Nginx (Reverse Proxy)
+ - Linux (Ubuntu Server)
 
 ⸻
 
 ## 🏗️ Architecture Flow
 
-	1.	Developed web application using Flask
-	2.	Pushed source code to GitHub repository
-	3.	Configured Jenkins pipeline on AWS EC2
-	4.	Integrated GitHub Webhook for automatic triggering
-	5.	Installed dependencies using virtual environments in CI
-	6.	Built Docker image automatically via Jenkins
-	7.	Replaced existing container on every build
-	8.	Deployed application using Docker
-	9.	Configured Nginx to reverse proxy traffic
-	10.	Accessed application via EC2 Public IP / Domain
+1. Developed web application using Flask
+2. Pushed source code to GitHub repository
+3. Configured Jenkins pipeline on AWS EC2
+4. Integrated GitHub Webhook for automatic triggering
+5. Installed dependencies using virtual environments in CI
+6. Built Docker image automatically via Jenkins
+7. Replaced existing container on every build
+8. Deployed application using Docker
+9. Configured Nginx to reverse proxy traffic
+10. Accessed application via EC2 Public IP / Domain
 
 ## 📂 Project Structure
 ```
@@ -65,33 +65,33 @@ Flask Application
 ⸻
 
 ## ☁️ Cloud Infrastructure
-	•	AWS EC2 (Ubuntu Server)
-	•	Jenkins installed on EC2
-	•	Docker Engine installed on EC2
-	•	Nginx configured as reverse proxy
-	•	GitHub Webhook for CI trigger
+ - AWS EC2 (Ubuntu Server)
+ - Jenkins installed on EC2
+ - Docker Engine installed on EC2
+ - Nginx configured as reverse proxy
+ - GitHub Webhook for CI trigger
 
 ⸻
 
 ## 🚀 CI/CD Pipeline Stages
 
-1️⃣ Checkout Code
+1. Checkout Code
 
 Jenkins pulls latest code from GitHub.
 
-2️⃣ Install Dependencies
+2. Install Dependencies
 
 Creates Python virtual environment and installs requirements.
 
-3️⃣ Run Tests
+3. Run test
 
 Performs syntax validation using Python compilation.
 
-4️⃣ Build Docker Image
+4. Build Docker Image
 
 Creates Docker image automatically.
 
-5️⃣ Deploy Application
+5. .Deploy Application
 
 Stops old container (if running)
 Removes existing container
@@ -102,17 +102,17 @@ Runs new container with latest image
 ## 🔄 Automatic Deployment
 
 Every git push to the main branch:
-	•	Triggers Jenkins via GitHub Webhook
-	•	Rebuilds Docker image
-	•	Replaces running container
-	•	Deploys latest version automatically
+ - Triggers Jenkins via GitHub Webhook
+ - Rebuilds Docker image
+ - Replaces running container
+ - Deploys latest version automatically
 
 No manual server intervention required.
 
 ⸻
 
 ## 🔍 Application Endpoint
-	•	/ → Displays the application home page confirming successful deployment.
+      - `/` →→ Displays the application home page confirming successful deployment.
 
 ⸻
 ## 📸 CI/CD & Deployment Proof
@@ -148,32 +148,32 @@ No manual server intervention required.
 
 ---
 ## 📊 DevOps Concepts Implemented
-	•	Continuous Integration (CI)
-	•	Continuous Deployment (CD)
-	•	GitHub Webhooks
-	•	Pipeline Automation
-	•	Docker Containerization
-	•	Reverse Proxy Configuration
-	•	Production WSGI Server (Gunicorn)
-	•	Infrastructure Setup on AWS
-	•	Automated Container Replacement
-	•	Debugging using logs & systemctl
-	•	Nginx upstream configuration
+ - Continuous Integration (CI)
+ - Continuous Deployment (CD)
+ - GitHub Webhooks
+ - Pipeline Automation
+ - Docker Containerization
+ - Reverse Proxy Configuration
+ - Production WSGI Server (Gunicorn)
+ - Infrastructure Setup on AWS
+ - Automated Container Replacement
+ - Debugging using logs & systemctl
+ - Nginx upstream configuration
 
 ⸻
 
 ## 🎯 Learning Outcomes
 
 Through this project, I gained hands-on experience in:
-	•	Designing and implementing a complete CI/CD pipeline
-	•	Automating Docker builds using Jenkins
-	•	Integrating GitHub with Jenkins via Webhooks
-	•	Managing Linux servers on AWS EC2
-	•	Configuring Nginx as reverse proxy
-	•	Deploying production-ready Flask apps using Gunicorn
-	•	Handling real-world deployment errors (502, container conflicts, port issues)
-	•	Debugging Docker, Jenkins, and Nginx logs
-	•	Understanding full DevOps workflow from development to live deployment
+ - Designing and implementing a complete CI/CD pipeline
+ - Automating Docker builds using Jenkins
+ - Integrating GitHub with Jenkins via Webhooks
+ - Managing Linux servers on AWS EC2
+ - Configuring Nginx as reverse proxy
+ - Deploying production-ready Flask apps using Gunicorn
+ - Handling real-world deployment errors (502, container conflicts, port issues)
+ - Debugging Docker, Jenkins, and Nginx logs
+ - Understanding full DevOps workflow from development to live deployment
 
 ⸻
 
