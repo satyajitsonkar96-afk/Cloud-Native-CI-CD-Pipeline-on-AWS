@@ -55,16 +55,16 @@ Cloud-Native-CI-CD-Pipeline-on-AWS
 
 ## 🏛️ Deployment Architecture
 
-Client (Browser)
-↓
-EC2 Public IP / Domain
-↓
-Nginx (Port 80)
-↓
-Docker Container (Port 5000)
-↓
-Gunicorn
-↓
+Client (Browser) <br>
+↓ <br>
+EC2 Public IP / Domain <br>
+↓ <br>
+Nginx Reverse Proxy (Port 80) <br>
+↓ <br>
+Docker Container (Port 5000) <br>
+↓ <br>
+Gunicorn WSGI Server <br>
+↓ <br>
 Flask Application
 
 ⸻
