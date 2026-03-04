@@ -97,6 +97,8 @@ Builds a Docker image for the application automatically.
 
 ### 5. Deploy Application
 Stops the existing container (if running), removes the old container, and starts a new container using the latest Docker image.
+
+
 ⸻
 
 ## 🔄 Automatic Deployment
