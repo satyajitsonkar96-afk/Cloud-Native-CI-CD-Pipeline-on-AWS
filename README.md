@@ -99,7 +99,7 @@ Builds a Docker image for the application automatically.
 Stops the existing container (if running), removes the old container, and starts a new container using the latest Docker image.
 ⸻
 
-## ## 🔄 Automatic Deployment
+## 🔄 Automatic Deployment
 
 Every push to the **main branch** automatically triggers the deployment pipeline.
 
