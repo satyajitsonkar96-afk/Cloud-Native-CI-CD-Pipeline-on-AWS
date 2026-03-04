@@ -83,28 +83,20 @@ Flask Application
 
 ## 🚀 CI/CD Pipeline Stages
 
-1. Checkout Code
+### 1. Checkout Code
+Jenkins pulls the latest source code from the GitHub repository.
 
-Jenkins pulls latest code from GitHub.
+### 2. Install Dependencies
+Creates a Python virtual environment and installs the required dependencies from `requirements.txt`.
 
-2. Install Dependencies
+### 3. Run Tests
+Performs basic syntax validation by compiling the Python files.
 
-Creates Python virtual environment and installs requirements.
+### 4. Build Docker Image
+Builds a Docker image for the application automatically.
 
-3. Run test
-
-Performs syntax validation using Python compilation.
-
-4. Build Docker Image
-
-Creates Docker image automatically.
-
-5. Deploy Application
-
-Stops old container (if running)
-Removes existing container
-Runs new container with latest image
-
+### 5. Deploy Application
+Stops the existing container (if running), removes the old container, and starts a new container using the latest Docker image.
 ⸻
 
 ## 🔄 Automatic Deployment
