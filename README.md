@@ -37,15 +37,20 @@ It showcases automated build, test, containerization, and live deployment trigge
 
 ## 📂 Project Structure
 ```
-cloud-native-ci-cd/
+Cloud-Native-CI-CD-Pipeline-on-AWS
 │
 ├── app/
-│   └── main.py                # Flask application
+│   ├── main.py
+│   └── test_app.py
 │
-├── Dockerfile                 # Docker image definition
-├── Jenkinsfile                # CI/CD pipeline script
-├── requirements.txt           # Python dependencies
-└── README.md                  # Project documentation|
+├── screenshots/
+│
+├── Dockerfile
+├── Jenkinsfile
+├── config.py
+├── requirements.txt
+├── .gitignore
+└── README.md                 # Project documentation|
 ```
 
 ## 🏛️ Deployment Architecture
