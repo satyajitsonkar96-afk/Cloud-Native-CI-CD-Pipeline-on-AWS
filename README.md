@@ -20,7 +20,7 @@ It showcases automated build, test, containerization, and live deployment trigge
  - Nginx (Reverse Proxy)
  - Linux (Ubuntu Server)
 
-
+⸻
 
 ## 🏗️ Architecture Flow
 
@@ -34,6 +34,8 @@ It showcases automated build, test, containerization, and live deployment trigge
 8. Deployed application using Docker
 9. Configured Nginx to reverse proxy traffic
 10. Accessed application via EC2 Public IP / Domain
+
+⸻
 
 ## 📂 Project Structure
 ```
@@ -52,6 +54,7 @@ Cloud-Native-CI-CD-Pipeline-on-AWS
 ├── .gitignore
 └── README.md                 # Project documentation|
 ```
+⸻
 
 ## 🏛️ Deployment Architecture
 
@@ -188,4 +191,3 @@ Satyajit Sonkar
 B.Sc Cloud Computing
 DevOps & Cloud Engineering Enthusiast 🚀
 ```
----
