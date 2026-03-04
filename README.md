@@ -20,7 +20,7 @@ It showcases automated build, test, containerization, and live deployment trigge
  - Nginx (Reverse Proxy)
  - Linux (Ubuntu Server)
 
-⸻
+
 
 ## 🏗️ Architecture Flow
 
