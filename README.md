@@ -99,15 +99,19 @@ Builds a Docker image for the application automatically.
 Stops the existing container (if running), removes the old container, and starts a new container using the latest Docker image.
 ⸻
 
-## 🔄 Automatic Deployment
+## ## 🔄 Automatic Deployment
 
-Every git push to the main branch:
- - Triggers Jenkins via GitHub Webhook
- - Rebuilds Docker image
- - Replaces running container
- - Deploys latest version automatically
+Every push to the **main branch** automatically triggers the deployment pipeline.
 
-No manual server intervention required.
+### Workflow
+
+• GitHub sends a **webhook event** to Jenkins  
+• Jenkins starts the **CI/CD pipeline**  
+• A new **Docker image is built** from the updated code  
+• The running container is **stopped and replaced**  
+• The **latest version of the application is deployed automatically**
+
+No manual server intervention is required.
 
 ⸻
 
