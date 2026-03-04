@@ -99,7 +99,7 @@ Performs syntax validation using Python compilation.
 
 Creates Docker image automatically.
 
-5. .Deploy Application
+5. Deploy Application
 
 Stops old container (if running)
 Removes existing container
