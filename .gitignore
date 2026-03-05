@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+
+# Temporary files
+*.save
+
+# Environment variables
+.env
+
+# OS files
+DS.store
