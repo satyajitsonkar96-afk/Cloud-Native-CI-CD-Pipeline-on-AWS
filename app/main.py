@@ -139,7 +139,12 @@ def home():
                     <div class="card card-custom">
                         <div class="card-body text-center">
                             <i class="fas fa-user-circle fa-4x mb-3"></i>
-                            <h4>Satyajit Uddhav Sonkar</h4>
+                            <h4>Satyajit Sonkar</h4>
+                            <h4>Uddhav Warule</h4>
+                            <h4>Harshal Subhedar</h4>
+                            <h4>Shree Dhadge</h4>
+                            <h4>Bhakti Ghodke</h4>
+                            <h4>Vaishnavi Dhanwat</h4>
                             <p class="mb-2">DevOps Engineer | Cloud Enthusiast</p>
                             <div>
                                 <span class="badge bg-light text-dark">Version 1.0</span>
