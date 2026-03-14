@@ -101,7 +101,7 @@ def home():
 
         <!-- Feature Cards -->
         <div class="container">
-0            <div class="row g-4">
+            <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card card-custom h-100">
                         <div class="card-body text-center">
