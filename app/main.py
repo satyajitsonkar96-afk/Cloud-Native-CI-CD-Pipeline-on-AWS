@@ -32,7 +32,7 @@ def home():
             .card-custom {
                 background: rgba(255,255,255,0.1);
                 backdrop-filter: blur(5px);
-                border: 1px solid rgba(255,255,255,0.2);
+0                border: 1px solid rgba(255,255,255,0.2);
                 color: white;
                 transition: transform 0.3s;
             }
