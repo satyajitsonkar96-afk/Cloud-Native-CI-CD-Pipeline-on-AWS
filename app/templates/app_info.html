@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Info | Cloud DevOps Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #fef9f0 0%, #f2f4f8 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255,255,240,0.6);
+            transition: all 0.3s;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1f6e6b, #e68a2e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            color: #475569;
+            margin-bottom: 2rem;
+            border-left: 3px solid #e68a2e;
+            padding-left: 1rem;
+        }
+
+        .status-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .status-healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-checking {
+            background: #e2e3e5;
+            color: #4b5563;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-green { background-color: #10b981; }
+        .dot-red { background-color: #ef4444; }
+        .dot-gray { background-color: #6b7280; }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .info-section {
+            margin: 1.2rem 0;
+        }
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .info-label {
+            font-weight: 700;
+            color: #1e293b;
+            width: 110px;
+            flex-shrink: 0;
+        }
+        .info-value {
+            color: #2d3e50;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .team-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        .team-badge {
+            background: #f1f5f9;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.3rem;
+        }
+        .tech-item {
+            background: #eef2ff;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1f6e6b;
+        }
+
+        .refresh-btn {
+            background: #0f3b5c;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        .refresh-btn:hover {
+            background: #e68a2e;
+            transform: scale(0.97);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #6c7a91;
+            text-align: center;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+        .error-box {
+            background: #fff5f5;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+<div class="info-container">
+    <h1>📋 Application Info</h1>
+    <div class="sub">CI/CD pipeline metadata & team details</div>
+
+    <div class="status-card" id="infoCard">
+        <div class="status-badge status-checking" id="statusBadge">
+            <span class="dot dot-gray pulse"></span> Loading...
+        </div>
+        <div id="infoDetails">
+            <div class="info-section">
+                <div class="info-row"><span class="info-label">Project</span><span class="info-value" id="project">—</span></div>
+                <div class="info-row"><span class="info-label">Developer</span><span class="info-value" id="developer">—</span></div>
+                <div class="info-row"><span class="info-label">Platform</span><span class="info-value" id="platform">—</span></div>
+                <div class="info-row"><span class="info-label">Pipeline</span><span class="info-value" id="pipeline">—</span></div>
+                <div class="info-row"><span class="info-label">Container</span><span class="info-value" id="container">—</span></div>
+                <div class="info-row"><span class="info-label">Team</span>
+                    <div class="info-value"><div class="team-list" id="teamList"></div></div>
+                </div>
+                <div class="info-row"><span class="info-label">Tech Stack</span>
+                    <div class="info-value"><div class="tech-stack" id="techStack"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="fetchAppInfo()">
+        🔄 Refresh Info
+    </button>
+    <div class="footer">
+        <span>Endpoint: <code>/info</code></span> &nbsp;|&nbsp;
+        <span>Auto-refresh every 20 seconds</span>
+    </div>
+</div>
+
+<script>
+    async function fetchAppInfo() {
+        const badge = document.getElementById('statusBadge');
+        const projectSpan = document.getElementById('project');
+        const developerSpan = document.getElementById('developer');
+        const platformSpan = document.getElementById('platform');
+        const pipelineSpan = document.getElementById('pipeline');
+        const containerSpan = document.getElementById('container');
+        const teamContainer = document.getElementById('teamList');
+
+        // Show checking state
+        badge.className = 'status-badge status-checking';
+        badge.innerHTML = '<span class="dot dot-gray pulse"></span> Fetching data...';
+        projectSpan.innerText = '⏳';
+        developerSpan.innerText = '⏳';
+        platformSpan.innerText = '⏳';
+        pipelineSpan.innerText = '⏳';
+        containerSpan.innerText = '⏳';
+        teamContainer.innerHTML = '<span class="team-badge">...</span>';
+
+        try {
+            const response = await fetch('/info', { cache: 'no-store' });
+            if (response.ok) {
+                const data = await response.json();
+                badge.className = 'status-badge status-healthy';
+                badge.innerHTML = '<span class="dot dot-green"></span> ● Connected / OK';
+                projectSpan.innerText = data.project || 'Cloud Native CI/CD Pipeline';
+                developerSpan.innerText = data.developer || 'Satyajit Sonkar';
+                platformSpan.innerText = data.platform || 'AWS EC2';
+                pipelineSpan.innerText = data.pipeline || 'Jenkins CI/CD';
+                containerSpan.innerText = data.container || 'Docker';
+                // Render team array
+                if (Array.isArray(data.team) && data.team.length) {
+                    teamContainer.innerHTML = data.team.map(name => `<span class="team-badge">${escapeHtml(name)}</span>`).join('');
+                } else {
+                    teamContainer.innerHTML = '<span class="team-badge">Not specified</span>';
+                }
+                // Optional: display derived tech stack (from pipeline + container)
+                const techDiv = document.getElementById('techStack');
+                techDiv.innerHTML = `
+                    <span class="tech-item">🐍 Python</span>
+                    <span class="tech-item">⚡ Flask</span>
+                    <span class="tech-item">🔧 ${escapeHtml(data.pipeline || 'Jenkins')}</span>
+                    <span class="tech-item">🐳 ${escapeHtml(data.container || 'Docker')}</span>
+                    <span class="tech-item">☁️ ${escapeHtml(data.platform || 'AWS')}</span>
+                `;
+            } else {
+                // HTTP error (4xx,5xx)
+                badge.className = 'status-badge status-error';
+                badge.innerHTML = '<span class="dot dot-red"></span> ● Error fetching info';
+                projectSpan.innerText = 'Failed to load';
+                developerSpan.innerText = '-';
+                platformSpan.innerText = '-';
+                pipelineSpan.innerText = '-';
+                containerSpan.innerText = '-';
+                teamContainer.innerHTML = '<span class="team-badge">Error</span>';
+                const techDiv = document.getElementById('techStack');
+                techDiv.innerHTML = '<span class="tech-item">⚠️ Could not retrieve</span>';
+            }
+        } catch (err) {
+            console.error('Fetch error:', err);
+            badge.className = 'status-badge status-error';
+            badge.innerHTML = '<span class="dot dot-red"></span> ● Offline / Unreachable';
+            projectSpan.innerText = 'Cannot reach backend';
+            developerSpan.innerText = '-';
+            platformSpan.innerText = '-';
+            pipelineSpan.innerText = '-';
+            containerSpan.innerText = '-';
+            teamContainer.innerHTML = '<span class="team-badge">Network error</span>';
+            const techDiv = document.getElementById('techStack');
+            techDiv.innerHTML = '<span class="tech-item">🔌 Connection failed</span>';
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Initial load
+    fetchAppInfo();
+    // Auto-refresh every 20 seconds
+    setInterval(fetchAppInfo, 20000);
+</script>
+</body>
+</html>

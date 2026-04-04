@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Metrics | Cloud DevOps App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f0f9ff 0%, #e9f0f9 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .metrics-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.3s;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1f6e6b, #3b82b6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            color: #475569;
+            margin-bottom: 2rem;
+            border-left: 3px solid #3b82b6;
+            padding-left: 1rem;
+        }
+
+        .metric-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .status-healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-loading {
+            background: #e2e3e5;
+            color: #4b5563;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-green { background-color: #10b981; }
+        .dot-red { background-color: #ef4444; }
+        .dot-gray { background-color: #6b7280; }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .metrics-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+        }
+        .metric-label {
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+        .metric-value {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f3b5c;
+            background: #f8fafc;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        .refresh-btn {
+            background: #0f3b5c;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+        .refresh-btn:hover {
+            background: #3b82b6;
+            transform: scale(0.97);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #6c7a91;
+            text-align: center;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+        .error-box {
+            background: #fff5f5;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            color: #991b1b;
+        }
+
+        /* Gauge style for CPU? simple visual */
+        .cpu-bar {
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 8px;
+            margin-top: 0.3rem;
+            overflow: hidden;
+        }
+        .cpu-fill {
+            background: #3b82b6;
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div class="metrics-container">
+    <h1>📊 System Metrics</h1>
+    <div class="sub">Real-time runtime metrics from your Flask app</div>
+
+    <div class="metric-card">
+        <div class="status-badge status-loading" id="statusBadge">
+            <span class="dot dot-gray pulse"></span> Loading metrics...
+        </div>
+        <div class="metrics-grid" id="metricsGrid">
+            <div class="metric-row">
+                <div class="metric-label">🐍 Python Version</div>
+                <div class="metric-value" id="pythonVersion">—</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">🖥️ Server OS</div>
+                <div class="metric-value" id="serverOs">—</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">💻 CPU Cores</div>
+                <div class="metric-value" id="cpuCores">—</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">⏰ Current Server Time</div>
+                <div class="metric-value" id="serverTime">—</div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-label">📡 API Response</div>
+                <div class="metric-value" id="httpStatus">—</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="fetchMetrics()">
+        🔄 Refresh Metrics
+    </button>
+    <div class="footer">
+        <span>Endpoint: <code>/metrics</code></span> &nbsp;|&nbsp;
+        <span>Auto-refresh every 15 seconds</span>
+    </div>
+</div>
+
+<script>
+    async function fetchMetrics() {
+        const badge = document.getElementById('statusBadge');
+        const pythonSpan = document.getElementById('pythonVersion');
+        const osSpan = document.getElementById('serverOs');
+        const cpuSpan = document.getElementById('cpuCores');
+        const timeSpan = document.getElementById('serverTime');
+        const httpSpan = document.getElementById('httpStatus');
+
+        // Loading state
+        badge.className = 'status-badge status-loading';
+        badge.innerHTML = '<span class="dot dot-gray pulse"></span> Fetching metrics...';
+        pythonSpan.innerText = '⏳';
+        osSpan.innerText = '⏳';
+        cpuSpan.innerText = '⏳';
+        timeSpan.innerText = '⏳';
+        httpSpan.innerText = '⏳';
+
+        try {
+            const response = await fetch('/metrics', { cache: 'no-store' });
+            const httpCode = response.status;
+            httpSpan.innerText = `${httpCode} ${response.statusText}`;
+
+            if (response.ok) {
+                const data = await response.json();
+                badge.className = 'status-badge status-healthy';
+                badge.innerHTML = '<span class="dot dot-green"></span> ● Metrics live';
+                pythonSpan.innerText = data.python_version || '3.x';
+                osSpan.innerText = data.server || data.platform || 'Unknown';
+                cpuSpan.innerText = data.cpu_count !== undefined ? data.cpu_count : '?';
+                timeSpan.innerText = data.time || new Date().toISOString();
+            } else {
+                badge.className = 'status-badge status-error';
+                badge.innerHTML = '<span class="dot dot-red"></span> ● Error fetching metrics';
+                pythonSpan.innerText = 'Error';
+                osSpan.innerText = '-';
+                cpuSpan.innerText = '-';
+                timeSpan.innerText = '-';
+            }
+        } catch (err) {
+            console.error('Metrics fetch error:', err);
+            badge.className = 'status-badge status-error';
+            badge.innerHTML = '<span class="dot dot-red"></span> ● Offline / Unreachable';
+            pythonSpan.innerText = 'Cannot connect';
+            osSpan.innerText = '-';
+            cpuSpan.innerText = '-';
+            timeSpan.innerText = '-';
+            httpSpan.innerText = 'Network Error';
+        }
+    }
+
+    // Initial load
+    fetchMetrics();
+    // Auto-refresh every 15 seconds
+    setInterval(fetchMetrics, 15000);
+</script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check | Cloud DevOps App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f0f9ff 0%, #e6f0fa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .health-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            color: #475569;
+            margin-bottom: 2rem;
+            border-left: 3px solid #10b981;
+            padding-left: 1rem;
+        }
+
+        .status-card {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-unhealthy {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-checking {
+            background: #e2e3e5;
+            color: #4b5563;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        .dot-green { background-color: #10b981; }
+        .dot-red { background-color: #ef4444; }
+        .dot-gray { background-color: #6b7280; }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #334155;
+        }
+        .info-value {
+            font-family: 'Fira Code', monospace;
+            color: #0f3b5c;
+        }
+
+        .refresh-btn {
+            background: #0f3b5c;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+        .refresh-btn:hover {
+            background: #1e6f5c;
+            transform: scale(0.97);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #6c7a91;
+            text-align: center;
+        }
+
+        .error-message {
+            background: #fff5f5;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="health-container">
+    <h1>🩺 Health Monitor</h1>
+    <div class="sub">Live health status of your Cloud DevOps App</div>
+
+    <div class="status-card" id="healthCard">
+        <div class="status-badge status-checking" id="statusBadge">
+            <span class="dot dot-gray"></span> Checking...
+        </div>
+        <div id="healthDetails">
+            <div class="info-row"><span class="info-label">Application</span><span class="info-value" id="appName">—</span></div>
+            <div class="info-row"><span class="info-label">Version</span><span class="info-value" id="appVersion">—</span></div>
+            <div class="info-row"><span class="info-label">Server Time</span><span class="info-value" id="serverTime">—</span></div>
+            <div class="info-row"><span class="info-label">Response Status</span><span class="info-value" id="httpStatus">—</span></div>
+        </div>
+    </div>
+
+    <button class="refresh-btn" onclick="checkHealth()">
+        🔄 Refresh Health Check
+    </button>
+    <div class="footer">
+        <span>Endpoint: <code id="endpointUrl">/health</code></span><br>
+        Auto-refreshes every 15 seconds
+    </div>
+</div>
+
+<script>
+    async function checkHealth() {
+        const badge = document.getElementById('statusBadge');
+        const appNameSpan = document.getElementById('appName');
+        const versionSpan = document.getElementById('appVersion');
+        const timeSpan = document.getElementById('serverTime');
+        const httpSpan = document.getElementById('httpStatus');
+
+        // Show checking state
+        badge.className = 'status-badge status-checking';
+        badge.innerHTML = '<span class="dot dot-gray"></span> Checking...';
+        appNameSpan.innerText = '⏳';
+        versionSpan.innerText = '⏳';
+        timeSpan.innerText = '⏳';
+        httpSpan.innerText = '⏳';
+
+        try {
+            const response = await fetch('/health', { cache: 'no-store' });
+            const httpCode = response.status;
+            httpSpan.innerText = `${httpCode} ${response.statusText}`;
+
+            if (response.ok) {
+                const data = await response.json();
+                // Update badge to healthy
+                badge.className = 'status-badge status-healthy';
+                badge.innerHTML = '<span class="dot dot-green"></span> ● HEALTHY';
+                appNameSpan.innerText = data.application || 'Cloud DevOps App';
+                versionSpan.innerText = data.version || '1.0';
+                timeSpan.innerText = data.time || new Date().toISOString();
+            } else {
+                // Unhealthy HTTP status
+                badge.className = 'status-badge status-unhealthy';
+                badge.innerHTML = '<span class="dot dot-red"></span> ● UNHEALTHY';
+                appNameSpan.innerText = 'Error';
+                versionSpan.innerText = '-';
+                timeSpan.innerText = '-';
+                // Try to read error text
+                const errorText = await response.text();
+                console.warn('Health check failed:', errorText);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+            badge.className = 'status-badge status-unhealthy';
+            badge.innerHTML = '<span class="dot dot-red"></span> ● OFFLINE / UNREACHABLE';
+            appNameSpan.innerText = 'Cannot reach backend';
+            versionSpan.innerText = '-';
+            timeSpan.innerText = '-';
+            httpSpan.innerText = 'Network Error';
+        }
+    }
+
+    // Initial check
+    checkHealth();
+    // Auto-refresh every 15 seconds
+    setInterval(checkHealth, 15000);
+</script>
+</body>
+</html>
