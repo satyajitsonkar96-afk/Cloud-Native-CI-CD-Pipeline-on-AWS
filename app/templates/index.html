@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Cloud DevOps App | CI/CD Pipeline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudNative Pipeline | Creative Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -12,298 +12,366 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0a192f 0%, #0c2d4a 100%);
-            color: #e2e8f0;
-            line-height: 1.5;
-            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #fef9f0 0%, #f2f4f8 100%);
+            color: #1e2a3a;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Glassmorphism card effect */
+        /* Animated background blobs */
+        .blob {
+            position: fixed;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(46, 184, 164, 0.08) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 20s infinite ease-in-out;
+        }
+        .blob-1 { top: -10vh; left: -10vw; animation-duration: 25s; }
+        .blob-2 { bottom: -15vh; right: -5vw; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(245, 158, 76, 0.06) 0%, transparent 70%); animation-duration: 30s; }
+        .blob-3 { top: 40%; left: 30%; width: 30vw; height: 30vw; background: radial-gradient(circle, rgba(79, 163, 214, 0.06) 0%, transparent 70%); animation-duration: 18s; animation-delay: -5s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(3%, 4%) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
         .container {
-            max-width: 1280px;
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 2rem 2rem 3rem;
         }
 
-        /* Header */
-        .header {
+        /* Header with creative divider */
+        .hero {
             text-align: center;
             margin-bottom: 3rem;
-            padding: 2rem 0;
-            border-bottom: 1px solid rgba(100, 200, 255, 0.2);
+            position: relative;
         }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #60efff, #00b4d8);
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1f6e6b, #e68a2e, #3b82b6);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.02em;
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            margin-top: 0.5rem;
-        }
-
-        .badge {
             display: inline-block;
-            background: rgba(0, 180, 216, 0.15);
+            animation: shimmer 6s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+        .hero-badge {
+            display: inline-flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pill {
+            background: rgba(255,255,240,0.7);
             backdrop-filter: blur(4px);
-            padding: 0.25rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            font-size: 0.75rem;
             font-weight: 500;
-            color: #60efff;
-            border: 1px solid rgba(96, 239, 255, 0.3);
-            margin-top: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
-        /* Cards grid */
-        .grid {
+        /* Creative grid layout */
+        .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.8rem;
-            margin: 2rem 0 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
         }
 
+        /* Card with organic shapes */
         .card {
-            background: rgba(15, 30, 45, 0.65);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
             padding: 1.8rem;
-            border: 1px solid rgba(96, 239, 255, 0.15);
-            transition: transform 0.25s ease, border-color 0.2s;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0,0,0,0.01);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
         .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(96, 239, 255, 0.5);
-            background: rgba(20, 40, 60, 0.7);
+            transform: translateY(-6px) scale(1.01);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.12);
+            border-color: #fde68a;
         }
-
-        .card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #60efff;
+        .card-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card h3 i {
-            font-size: 1.6rem;
-        }
-
-        .card p {
-            color: #cbd5e1;
+            gap: 0.7rem;
             margin-bottom: 1.2rem;
-            font-size: 0.95rem;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #2c3e50;
         }
-
-        .endpoint {
-            background: #0a1220;
-            border-radius: 12px;
-            padding: 0.6rem 1rem;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: #60efff;
-            margin: 1rem 0;
-            border-left: 3px solid #00b4d8;
-            word-break: break-all;
+        .card-header span:first-child {
+            font-size: 2rem;
         }
-
-        .btn {
+        .endpoint-url {
+            background: #f3f4f6;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
             display: inline-block;
-            background: rgba(0, 180, 216, 0.2);
-            border: 1px solid #00b4d8;
-            color: #e2e8f0;
+            margin: 0.8rem 0;
+            border-left: 3px solid #f59e0b;
+        }
+        .btn-creative {
+            background: none;
+            border: 1.5px solid #e2e8f0;
             padding: 0.5rem 1.2rem;
             border-radius: 40px;
-            text-decoration: none;
-            font-size: 0.85rem;
             font-weight: 500;
-            transition: all 0.2s;
-            margin-top: 0.5rem;
+            transition: 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            color: #1f2937;
+        }
+        .btn-creative:hover {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            color: white;
+            transform: scale(0.96);
         }
 
-        .btn:hover {
-            background: #00b4d8;
-            color: #0a192f;
-            box-shadow: 0 0 12px rgba(0, 180, 216, 0.5);
+        /* Live terminal widget */
+        .terminal {
+            background: #0a0c12;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: #a7f0e6;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+            margin: 1rem 0;
+            border: 1px solid #2d2f36;
+        }
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+            align-items: center;
+        }
+        .dot-red { width: 12px; height: 12px; background: #ff5f56; border-radius: 50%; }
+        .dot-yellow { width: 12px; height: 12px; background: #ffbd2e; border-radius: 50%; }
+        .dot-green { width: 12px; height: 12px; background: #27c93f; border-radius: 50%; }
+        .terminal pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+            color: #b9f3e4;
         }
 
-        /* Team section */
-        .team-section {
-            background: rgba(10, 30, 45, 0.5);
-            border-radius: 28px;
+        /* Team section with cards */
+        .team-creative {
+            margin-top: 3rem;
+            background: rgba(255,250,235,0.6);
+            border-radius: 2rem;
             padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(96, 239, 255, 0.2);
+            backdrop-filter: blur(4px);
         }
-
-        .team-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            color: #ffffff;
-        }
-
         .team-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1.5rem;
         }
-
-        .team-member {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
+        .member {
+            background: white;
+            border-radius: 60px;
+            padding: 0.4rem 1.3rem;
             font-weight: 500;
-            font-size: 0.9rem;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(96, 239, 255, 0.2);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid #ffe6c7;
+        }
+        .member:hover {
+            transform: translateY(-2px);
+            background: #fef3c7;
         }
 
-        /* Footer */
-        .footer {
+        /* Live stats row */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 0.8rem 1.5rem;
             text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(100, 200, 255, 0.2);
-            font-size: 0.85rem;
-            color: #7f8ea3;
+            min-width: 140px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #e68a2e;
         }
 
-        /* Status indicator */
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #0b2b1f;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            color: #4ade80;
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            color: #5b6e8c;
+            font-size: 0.8rem;
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            background-color: #4ade80;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* responsiveness */
         @media (max-width: 700px) {
-            .container {
-                padding: 1rem;
-            }
-            .card h3 {
-                font-size: 1.3rem;
-            }
-            .team-section {
-                padding: 1.2rem;
-            }
+            .container { padding: 1rem; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
 <div class="container">
-    <div class="header">
-        <div class="logo">☁️ CloudNative Pipeline</div>
-        <div class="tagline">CI/CD · AWS EC2 · Jenkins · Docker</div>
-        <div class="badge">
-            <span class="live-badge"><span class="dot"></span> PRODUCTION READY</span>
+    <div class="hero">
+        <h1>☁️ CloudNative Pipeline</h1>
+        <div class="tagline">where code meets the cloud — CI/CD reimagined</div>
+        <div class="hero-badge">
+            <span class="pill">⚡ Jenkins · Docker · AWS EC2</span>
+            <span class="pill">🎨 Flask REST API</span>
+            <span class="pill">🔄 Zero-downtime delivery</span>
         </div>
     </div>
 
-    <div class="grid">
-        <!-- Health Card -->
+    <!-- Live metrics row (dynamic fetch) -->
+    <div class="stats-row" id="liveStats">
+        <div class="stat-card">🐍 Python <span id="pyVersion" class="stat-number">—</span></div>
+        <div class="stat-card">💻 CPU Cores <span id="cpuCount" class="stat-number">—</span></div>
+        <div class="stat-card">🕒 Server Time <span id="serverTime" class="stat-number" style="font-size:1rem;">—</span></div>
+    </div>
+
+    <div class="dashboard">
+        <!-- Health Card + Terminal Preview -->
         <div class="card">
-            <h3>🩺 Health Check</h3>
-            <p>Monitor application status, uptime, and service availability. Ideal for load balancers and orchestration probes.</p>
-            <div class="endpoint">GET /health</div>
-            <a href="/health" class="btn" target="_blank">Check Health →</a>
+            <div class="card-header"><span>🩺</span> Health Monitor</div>
+            <p>Real-time service status & readiness probe. Essential for load balancers and k8s.</p>
+            <div class="endpoint-url">GET /health</div>
+            <a href="/health" class="btn-creative" target="_blank">Test Endpoint →</a>
+            <div class="terminal" id="healthTerminal">
+                <div class="terminal-header">
+                    <div class="dot-red"></div><div class="dot-yellow"></div><div class="dot-green"></div>
+                    <span style="color:#ccc; margin-left:0.5rem;">~ $ curl /health</span>
+                </div>
+                <pre id="healthOutput">Loading...</pre>
+            </div>
         </div>
 
-        <!-- Info Card -->
+        <!-- Info Card + dynamic team reflection -->
         <div class="card">
-            <h3>📋 App Info</h3>
-            <p>Project metadata, development team, infrastructure details (AWS EC2) and pipeline stack.</p>
-            <div class="endpoint">GET /info</div>
-            <a href="/info" class="btn" target="_blank">View Info →</a>
+            <div class="card-header"><span>📋</span> Project DNA</div>
+            <p>Built by Satyajit & team, running on AWS EC2 with Jenkins pipeline.</p>
+            <div class="endpoint-url">GET /info</div>
+            <a href="/info" class="btn-creative" target="_blank">Explore →</a>
+            <div class="terminal" style="margin-top:1rem;">
+                <div class="terminal-header">
+                    <div class="dot-red"></div><div class="dot-yellow"></div><div class="dot-green"></div>
+                    <span style="color:#ccc;">$ /info response</span>
+                </div>
+                <pre id="infoPreview">Fetching...</pre>
+            </div>
         </div>
 
-        <!-- Metrics Card -->
+        <!-- Metrics Card + dynamic graph feel -->
         <div class="card">
-            <h3>📊 System Metrics</h3>
-            <p>Runtime metrics: Python version, OS platform, CPU cores, and current server time.</p>
-            <div class="endpoint">GET /metrics</div>
-            <a href="/metrics" class="btn" target="_blank">See Metrics →</a>
+            <div class="card-header"><span>📊</span> System Pulse</div>
+            <p>Python version, platform, CPU count — live infrastructure metrics.</p>
+            <div class="endpoint-url">GET /metrics</div>
+            <a href="/metrics" class="btn-creative" target="_blank">View Metrics →</a>
+            <div class="terminal" style="margin-top:1rem;">
+                <div class="terminal-header">
+                    <div class="dot-red"></div><div class="dot-yellow"></div><div class="dot-green"></div>
+                    <span style="color:#ccc;">$ metrics snapshot</span>
+                </div>
+                <pre id="metricsOutput">Loading...</pre>
+            </div>
         </div>
     </div>
 
-    <!-- Team & Pipeline Section -->
-    <div class="team-section">
-        <h2>✨ Development Team</h2>
+    <!-- Creative Team Showcase -->
+    <div class="team-creative">
+        <h3 style="font-size: 1.7rem; font-weight: 600; text-align: center; color:#2c3e50;">✨ The Core Crew</h3>
         <div class="team-grid">
-            <span class="team-member">👨‍💻 Satyajit Sonkar</span>
-       
+            <div class="member">👨‍💻 Satyajit Sonkar</div>
         </div>
-        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
-            <span style="background: #0f212e; padding: 0.3rem 1rem; border-radius: 20px;">🔧 Jenkins · 🐳 Docker · ☁️ AWS EC2 · 📦 Git</span>
+        <div style="text-align: center; margin-top: 1.8rem;">
+            <span class="pill" style="background:#fef3c7;">🚀 CI/CD Pipeline: GitHub → Jenkins → Docker → AWS EC2</span>
         </div>
     </div>
 
-    <!-- Real-time info row (optional live data via fetch) -->
-    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0;">
-        <div class="live-badge">🐍 Python 3.9+</div>
-        <div class="live-badge">🚀 Flask REST API</div>
-        <div class="live-badge">🔄 Auto-deploy</div>
-    </div>
-
-    <div class="footer">
-        <p>Cloud Native CI/CD Pipeline — Version 1.0 | © 2025 Satyajit Sonkar & Team</p>
-        <p style="margin-top: 0.5rem; font-size: 0.75rem;">⚡ Deployed on AWS EC2 with Jenkins & Docker</p>
-    </div>
+    <footer>
+        <p>Cloud Native CI/CD v2.0 — creative dashboard with live API previews</p>
+        <p style="margin-top: 0.4rem;">⚡ auto-refreshes every 10s | made with 🧡 by the team</p>
+    </footer>
 </div>
 
-<!-- optional: add a small script to show current time on load (just for demo) -->
 <script>
-    // simple fetch to show dynamic timestamp from /metrics (optional)
-    async function fetchTime() {
+    // Helper: fetch and update terminal & stats
+    async function fetchAll() {
         try {
-            const res = await fetch('/metrics');
-            const data = await res.json();
-            const timeEl = document.createElement('div');
-            timeEl.style.fontSize = '0.7rem';
-            timeEl.style.marginTop = '0.5rem';
-            timeEl.style.opacity = '0.7';
-            timeEl.innerHTML = `🕒 Server time: ${data.time}`;
-            const footer = document.querySelector('.footer');
-            if(footer && !document.getElementById('server-time')) {
-                timeEl.id = 'server-time';
-                footer.appendChild(timeEl);
-            }
-        } catch(e) { console.log("time fetch not critical"); }
+            // Health
+            const healthRes = await fetch('/health');
+            const healthData = await healthRes.json();
+            document.getElementById('healthOutput').innerText = JSON.stringify(healthData, null, 2);
+
+            // Info
+            const infoRes = await fetch('/info');
+            const infoData = await infoRes.json();
+            document.getElementById('infoPreview').innerText = JSON.stringify(infoData, null, 2);
+
+            // Metrics
+            const metricsRes = await fetch('/metrics');
+            const metricsData = await metricsRes.json();
+            document.getElementById('metricsOutput').innerText = JSON.stringify(metricsData, null, 2);
+            
+            // Update stats row
+            document.getElementById('pyVersion').innerText = metricsData.python_version || '3.x';
+            document.getElementById('cpuCount').innerText = metricsData.cpu_count || '?';
+            document.getElementById('serverTime').innerHTML = new Date(metricsData.time).toLocaleTimeString() || '—';
+        } catch (err) {
+            console.warn("Could not fetch from backend (ensure flask is running)");
+            document.getElementById('healthOutput').innerText = "⚠️ Backend unreachable? Make sure Flask is running on port 5000.";
+            document.getElementById('infoPreview').innerText = "⚠️ Connect to Flask server";
+            document.getElementById('metricsOutput').innerText = "⚠️ /metrics endpoint error";
+        }
     }
-    fetchTime();
+
+    fetchAll();
+    setInterval(fetchAll, 10000); // refresh every 10 seconds for live feel
 </script>
 </body>
 </html>
