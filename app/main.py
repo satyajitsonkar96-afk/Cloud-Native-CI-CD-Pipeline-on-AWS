@@ -13,40 +13,17 @@ def home():
 # Health Check
 @app.route("/health")
 def health():
-    return jsonify({
-        "status": "healthy",
-        "application": "Cloud DevOps App",
-        "version": "1.0",
-        "time": str(datetime.datetime.now())
-    })
+    return render_template("health.html")
 
 # Application Info
 @app.route("/info")
 def info():
-    return jsonify({
-        "project": "Cloud Native CI/CD Pipeline",
-        "developer": "Satyajit Sonkar",
-        "team": [
-            "Uddhav Warule",
-            "Harshal Subhedar",
-            "Shree Dhadge",
-            "Bhakti Ghodke",
-            "Vaishnavi Dhanwat"
-        ],
-        "platform": "AWS EC2",
-        "pipeline": "Jenkins CI/CD",
-        "container": "Docker"
-    })
+    return render_template("app_info.html")
 
 # Metrics
 @app.route("/metrics")
 def metrics():
-    return jsonify({
-        "python_version": platform.python_version(),
-        "server": platform.system(),
-        "cpu_count": os.cpu_count(),
-        "time": str(datetime.datetime.now())
-    })
+    return render_template("metrics.html")
 
 
 if __name__ == "__main__":
