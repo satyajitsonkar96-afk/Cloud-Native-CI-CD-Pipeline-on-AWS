@@ -1,162 +1,309 @@
-
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cloud DevOps App</title>
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Font Awesome for icons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <style>
-            body {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                min-height: 100vh;
-            }
-            .navbar {
-                background: rgba(255,255,255,0.1) !important;
-                backdrop-filter: blur(10px);
-            }
-            .hero {
-                padding: 100px 0;
-                color: white;
-            }
-            .card-custom {
-                background: rgba(255,255,255,0.1);
-                backdrop-filter: blur(5px);
-                border: 1px solid rgba(255,255,255,0.2);
-                color: white;
-                transition: transform 0.3s;
-            }
-            .card-custom:hover {
-                transform: translateY(-5px);
-                background: rgba(255,255,255,0.2);
-            }
-            .btn-glass {
-                background: rgba(255,255,255,0.2);
-                border: 1px solid rgba(255,255,255,0.3);
-                color: white;
-                backdrop-filter: blur(5px);
-            }
-            .btn-glass:hover {
-                background: rgba(255,255,255,0.3);
-                color: white;
-            }
-            .footer {
-                background: rgba(0,0,0,0.3);
-                color: white;
-                padding: 20px 0;
-                margin-top: 50px;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <i class="fas fa-cloud-upload-alt"></i> Cloud DevOps Application
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/health">Health</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/info">Info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/metrics">Metrics</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cloud DevOps App | CI/CD Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        <!-- Hero Section -->
-        <section class="hero text-center">
-            <div class="container">
-                <h1 class="display-4 fw-bold">🚀 CICD NATIVE PIPELINE IS RUNNIG</h1>
-                <p class="lead">Deployed using Jenkins CI/CD on AWS | Version 1.0</p>
-                <div class="mt-4">
-                    <a href="/health" class="btn btn-glass btn-lg me-2"><i class="fas fa-heartbeat"></i> Health Check</a>
-                    <a href="/info" class="btn btn-glass btn-lg"><i class="fas fa-info-circle"></i> App Info</a>
-                </div>
-            </div>
-        </section>
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a192f 0%, #0c2d4a 100%);
+            color: #e2e8f0;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
 
-        <!-- Feature Cards -->
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card card-custom h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-code-branch fa-3x mb-3"></i>
-                            <h5 class="card-title">CI/CD Pipeline</h5>
-                            <p class="card-text">Automated build, test, and deployment using Jenkins.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-custom h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-cloud fa-3x mb-3"></i>
-                            <h5 class="card-title">Cloud Native</h5>
-                            <p class="card-text">Hosted on AWS with auto-scaling and load balancing.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-custom h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-shield-alt fa-3x mb-3"></i>
-                            <h5 class="card-title">Observability</h5>
-                            <p class="card-text">Real-time metrics, health checks, and logging.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        /* Glassmorphism card effect */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60efff, #00b4d8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 180, 216, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #60efff;
+            border: 1px solid rgba(96, 239, 255, 0.3);
+            margin-top: 1rem;
+        }
+
+        /* Cards grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .card {
+            background: rgba(15, 30, 45, 0.65);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1.8rem;
+            border: 1px solid rgba(96, 239, 255, 0.15);
+            transition: transform 0.25s ease, border-color 0.2s;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(96, 239, 255, 0.5);
+            background: rgba(20, 40, 60, 0.7);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #60efff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 i {
+            font-size: 1.6rem;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .endpoint {
+            background: #0a1220;
+            border-radius: 12px;
+            padding: 0.6rem 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #60efff;
+            margin: 1rem 0;
+            border-left: 3px solid #00b4d8;
+            word-break: break-all;
+        }
+
+        .btn {
+            display: inline-block;
+            background: rgba(0, 180, 216, 0.2);
+            border: 1px solid #00b4d8;
+            color: #e2e8f0;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #00b4d8;
+            color: #0a192f;
+            box-shadow: 0 0 12px rgba(0, 180, 216, 0.5);
+        }
+
+        /* Team section */
+        .team-section {
+            background: rgba(10, 30, 45, 0.5);
+            border-radius: 28px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(96, 239, 255, 0.2);
+        }
+
+        .team-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-member {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(96, 239, 255, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(100, 200, 255, 0.2);
+            font-size: 0.85rem;
+            color: #7f8ea3;
+        }
+
+        /* Status indicator */
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #0b2b1f;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #4ade80;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* responsiveness */
+        @media (max-width: 700px) {
+            .container {
+                padding: 1rem;
+            }
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            .team-section {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">☁️ CloudNative Pipeline</div>
+        <div class="tagline">CI/CD · AWS EC2 · Jenkins · Docker</div>
+        <div class="badge">
+            <span class="live-badge"><span class="dot"></span> PRODUCTION READY</span>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- Health Card -->
+        <div class="card">
+            <h3>🩺 Health Check</h3>
+            <p>Monitor application status, uptime, and service availability. Ideal for load balancers and orchestration probes.</p>
+            <div class="endpoint">GET /health</div>
+            <a href="/health" class="btn" target="_blank">Check Health →</a>
         </div>
 
-        <!-- Author Card -->
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card card-custom">
-                        <div class="card-body text-center">
-                            <i class="fas fa-user-circle fa-4x mb-3"></i>
-                            <h4>Satyajit Sonkar</h4>
-                            <h4>Uddhav Warule</h4>
-                            <h4>Harshal Subhedar</h4>
-                            <h4>Shree Dhadge</h4>
-                            <h4>Bhakti Ghodke</h4>
-                            <h4>Vaishnavi Dhanwat</h4>
-                            <p class="mb-2">DevOps Engineer | Cloud Enthusiast</p>
-                            <div>
-                                <span class="badge bg-light text-dark">Version 1.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Info Card -->
+        <div class="card">
+            <h3>📋 App Info</h3>
+            <p>Project metadata, development team, infrastructure details (AWS EC2) and pipeline stack.</p>
+            <div class="endpoint">GET /info</div>
+            <a href="/info" class="btn" target="_blank">View Info →</a>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer text-center">
-            <div class="container">
-                <p class="mb-0">&copy; 2025 Cloud DevOps App. All rights reserved.</p>
-            </div>
-        </footer>
+        <!-- Metrics Card -->
+        <div class="card">
+            <h3>📊 System Metrics</h3>
+            <p>Runtime metrics: Python version, OS platform, CPU cores, and current server time.</p>
+            <div class="endpoint">GET /metrics</div>
+            <a href="/metrics" class="btn" target="_blank">See Metrics →</a>
+        </div>
+    </div>
 
-        <!-- Bootstrap JS (for navbar toggle) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-    </html>
-  
+    <!-- Team & Pipeline Section -->
+    <div class="team-section">
+        <h2>✨ Development Team</h2>
+        <div class="team-grid">
+            <span class="team-member">👨‍💻 Satyajit Sonkar</span>
+       
+        </div>
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
+            <span style="background: #0f212e; padding: 0.3rem 1rem; border-radius: 20px;">🔧 Jenkins · 🐳 Docker · ☁️ AWS EC2 · 📦 Git</span>
+        </div>
+    </div>
+
+    <!-- Real-time info row (optional live data via fetch) -->
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0;">
+        <div class="live-badge">🐍 Python 3.9+</div>
+        <div class="live-badge">🚀 Flask REST API</div>
+        <div class="live-badge">🔄 Auto-deploy</div>
+    </div>
+
+    <div class="footer">
+        <p>Cloud Native CI/CD Pipeline — Version 1.0 | © 2025 Satyajit Sonkar & Team</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">⚡ Deployed on AWS EC2 with Jenkins & Docker</p>
+    </div>
+</div>
+
+<!-- optional: add a small script to show current time on load (just for demo) -->
+<script>
+    // simple fetch to show dynamic timestamp from /metrics (optional)
+    async function fetchTime() {
+        try {
+            const res = await fetch('/metrics');
+            const data = await res.json();
+            const timeEl = document.createElement('div');
+            timeEl.style.fontSize = '0.7rem';
+            timeEl.style.marginTop = '0.5rem';
+            timeEl.style.opacity = '0.7';
+            timeEl.innerHTML = `🕒 Server time: ${data.time}`;
+            const footer = document.querySelector('.footer');
+            if(footer && !document.getElementById('server-time')) {
+                timeEl.id = 'server-time';
+                footer.appendChild(timeEl);
+            }
+        } catch(e) { console.log("time fetch not critical"); }
+    }
+    fetchTime();
+</script>
+</body>
+</html>
